@@ -1,0 +1,13 @@
+{
+  "manifest_version": 3,
+  "name": "PSM Navigator",
+  "version": "1.0.0",
+  "action": {
+    "default_popup": "src/entrypoints/popup/index.html"
+  },
+  "options_page": "src/entrypoints/options/index.html",
+  "permissions": [
+    "storage"
+  ],
+  "description": "Universal jumper for internal PSM navigation"
+}
