@@ -119,7 +119,7 @@ export const translations = {
         add: '添加变量',
         new: '新建变量',
         namePlaceholder: '变量名 (如 VRegion)',
-        valuesPlaceholder: '变量值 (逗号分隔, 如 sg, va, mumbai)',
+        valuesPlaceholder: '变量值 (名称 - 值)',
         defaultPlaceholder: '默认值 (可选)',
         save: '保存变量',
         default: '默认:'

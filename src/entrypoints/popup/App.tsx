@@ -40,7 +40,7 @@ function App() {
     // Initialize defaults
     const defaults: Record<string, string> = {};
     data.variables.forEach(v => {
-      defaults[v.name] = v.defaultValue || v.values[0];
+      defaults[v.name] = v.defaultValue || v.values[0]?.value || '';
     });
     setSelectedVars(defaults);
   };
@@ -173,18 +173,18 @@ function App() {
                       <div className="flex bg-gray-100 rounded p-0.5">
                         {v.values.map(val => (
                           <button
-                            key={val}
+                            key={val.value}
                             onClick={(e) => {
                               e.stopPropagation();
-                              handleVarChange(v.name, val);
+                              handleVarChange(v.name, val.value);
                             }}
                             className={`px-2 py-0.5 rounded transition-colors ${
-                              selectedVars[v.name] === val 
+                              selectedVars[v.name] === val.value 
                                 ? 'bg-white text-blue-600 shadow-sm font-medium' 
                                 : 'text-gray-500 hover:text-gray-700'
                             }`}
                           >
-                            {val}
+                            {val.name}
                           </button>
                         ))}
                       </div>

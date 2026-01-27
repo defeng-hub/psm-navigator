@@ -178,7 +178,7 @@ function App() {
         id: Date.now().toString(),
         name: varFormData.name,
         values: varFormData.values,
-        defaultValue: varFormData.defaultValue || varFormData.values[0]
+        defaultValue: varFormData.defaultValue || varFormData.values[0]?.value
       };
       newVars = [...settings.variables, newVar];
     } else {
@@ -378,11 +378,46 @@ function App() {
                       value={varFormData.name || ''} 
                       onChange={e => setVarFormData({...varFormData, name: e.target.value})}
                     />
-                    <Input 
-                      placeholder={t('options.variables.valuesPlaceholder')} 
-                      value={varFormData.values?.join(', ') || ''} 
-                      onChange={e => setVarFormData({...varFormData, values: e.target.value.split(',').map(v => v.trim()).filter(Boolean)})}
-                    />
+                    
+                    <div className="space-y-2">
+                      <label className="text-sm font-medium text-gray-700">Values (Name - Value)</label>
+                      {(varFormData.values || []).map((val, idx) => (
+                        <div key={idx} className="flex gap-2">
+                          <Input
+                            placeholder="Name"
+                            value={val.name}
+                            onChange={e => {
+                              const newVals = [...(varFormData.values || [])];
+                              newVals[idx] = { ...newVals[idx], name: e.target.value };
+                              setVarFormData({ ...varFormData, values: newVals });
+                            }}
+                            className="flex-1"
+                          />
+                          <Input
+                            placeholder="Value"
+                            value={val.value}
+                            onChange={e => {
+                              const newVals = [...(varFormData.values || [])];
+                              newVals[idx] = { ...newVals[idx], value: e.target.value };
+                              setVarFormData({ ...varFormData, values: newVals });
+                            }}
+                            className="flex-1"
+                          />
+                          <Button variant="ghost" size="icon" onClick={() => {
+                            const newVals = (varFormData.values || []).filter((_, i) => i !== idx);
+                            setVarFormData({ ...varFormData, values: newVals });
+                          }}>
+                            <Trash2 size={14} />
+                          </Button>
+                        </div>
+                      ))}
+                      <Button size="sm" variant="secondary" onClick={() => {
+                        setVarFormData({ ...varFormData, values: [...(varFormData.values || []), { name: '', value: '' }] });
+                      }}>
+                        <Plus size={14} className="mr-1" /> Add Value
+                      </Button>
+                    </div>
+
                      <Input 
                       placeholder={t('options.variables.defaultPlaceholder')} 
                       value={varFormData.defaultValue || ''} 
@@ -405,10 +440,46 @@ function App() {
                           value={varFormData.name || ''} 
                           onChange={e => setVarFormData({...varFormData, name: e.target.value})}
                         />
-                        <Input 
-                          value={varFormData.values?.join(', ') || ''} 
-                          onChange={e => setVarFormData({...varFormData, values: e.target.value.split(',').map(v => v.trim()).filter(Boolean)})}
-                        />
+                        
+                        <div className="space-y-2">
+                          <label className="text-sm font-medium text-gray-700">{t('options.variables.valuesPlaceholder')}</label>
+                          {(varFormData.values || []).map((val, idx) => (
+                            <div key={idx} className="flex gap-2">
+                              <Input
+                                placeholder="Name"
+                                value={val.name}
+                                onChange={e => {
+                                  const newVals = [...(varFormData.values || [])];
+                                  newVals[idx] = { ...newVals[idx], name: e.target.value };
+                                  setVarFormData({ ...varFormData, values: newVals });
+                                }}
+                                className="flex-1"
+                              />
+                              <Input
+                                placeholder="Value"
+                                value={val.value}
+                                onChange={e => {
+                                  const newVals = [...(varFormData.values || [])];
+                                  newVals[idx] = { ...newVals[idx], value: e.target.value };
+                                  setVarFormData({ ...varFormData, values: newVals });
+                                }}
+                                className="flex-1"
+                              />
+                              <Button variant="ghost" size="icon" onClick={() => {
+                                const newVals = (varFormData.values || []).filter((_, i) => i !== idx);
+                                setVarFormData({ ...varFormData, values: newVals });
+                              }}>
+                                <Trash2 size={14} />
+                              </Button>
+                            </div>
+                          ))}
+                          <Button size="sm" variant="secondary" onClick={() => {
+                            setVarFormData({ ...varFormData, values: [...(varFormData.values || []), { name: '', value: '' }] });
+                          }}>
+                            <Plus size={14} className="mr-1" /> Add Value
+                          </Button>
+                        </div>
+
                          <Input 
                           placeholder={t('options.variables.defaultPlaceholder')}
                           value={varFormData.defaultValue || ''} 
@@ -427,8 +498,8 @@ function App() {
                             {variable.defaultValue && <span className="text-xs px-2 py-0.5 bg-gray-100 text-gray-500 rounded-full">{t('options.variables.default')} {variable.defaultValue}</span>}
                           </div>
                           <div className="flex flex-wrap gap-1 mt-2">
-                            {variable.values.map(v => (
-                              <span key={v} className="text-xs px-2 py-1 bg-gray-100 rounded border border-gray-200">{v}</span>
+                            {variable.values.map((v, i) => (
+                              <span key={i} className="text-xs px-2 py-1 bg-gray-100 rounded border border-gray-200" title={v.value}>{v.name}</span>
                             ))}
                           </div>
                         </div>

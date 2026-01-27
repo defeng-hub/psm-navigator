@@ -10,7 +10,7 @@ export interface PlatformConfig {
 export interface VariableConfig {
   id: string;
   name: string; // e.g. "VRegion" (without {})
-  values: string[]; // e.g. ["sg", "va"]
+  values: { name: string; value: string }[]; // e.g. [{ name: "US", value: "us" }]
   defaultValue?: string;
 }
 
@@ -26,13 +26,21 @@ export const DEFAULT_VARIABLES: VariableConfig[] = [
   {
     id: 'v1',
     name: 'Region',
-    values: ['US', 'CN', 'SG'],
+    values: [
+      { name: 'US', value: 'US' },
+      { name: 'CN', value: 'CN' },
+      { name: 'SG', value: 'SG' }
+    ],
     defaultValue: 'US'
   },
   {
     id: 'v2',
     name: 'Env',
-    values: ['prod', 'boe', 'ppe'],
+    values: [
+      { name: 'prod', value: 'prod' },
+      { name: 'boe', value: 'boe' },
+      { name: 'ppe', value: 'ppe' }
+    ],
     defaultValue: 'prod'
   }
 ];
