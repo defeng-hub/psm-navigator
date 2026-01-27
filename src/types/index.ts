@@ -20,6 +20,10 @@ export interface AppSettings {
   history: string[]; // List of recently visited PSMs
   predefinedPsms: string[]; // List of imported PSMs for autocomplete
   language: 'en' | 'cn';
+  lastState?: {
+    psm: string;
+    selectedVars: Record<string, string>;
+  };
 }
 
 export const DEFAULT_VARIABLES: VariableConfig[] = [

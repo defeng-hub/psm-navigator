@@ -60,5 +60,10 @@ export const storage = {
     } else {
       localStorage.removeItem(STORAGE_KEY);
     }
+  },
+
+  saveLastState: async (psm: string, selectedVars: Record<string, string>): Promise<void> => {
+    const settings = await storage.get();
+    await storage.set({ ...settings, lastState: { psm, selectedVars } });
   }
 };
