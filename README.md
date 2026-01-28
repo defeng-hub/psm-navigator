@@ -2,6 +2,12 @@
 
 一个基于 PSM（Product Service Module）标识符的通用内部导航 Chrome 扩展，帮助开发者快速跳转到各种内部平台。
 
+# 图片
+> 主页面：
+> <img src="https://pic.bythedu.com/defeng_boke/image_1769529045358.png" style="width: 30vw;">
+> 配置页面：
+> <img src="https://pic.bythedu.com/defeng_boke/image_1769529062553.png" style="width: 40vw;">
+
 ## 核心功能
 
 - **🚀 通用跳转器**：输入 PSM 快速跳转到各种平台（日志、监控、部署、代码等）。
